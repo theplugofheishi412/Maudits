@@ -1,0 +1,122 @@
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .quantity-btn:hover {
+            background: #e5e5e5;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+        }
+        
+        .remove-btn {
+            color: #888;
+            transition: all 0.2s;
+        }
+        
+        .remove-btn:hover {
+            color: #ff0000;
+        }
+        
+        .promo-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            flex-grow: 1;
+        }
+        
+        .promo-btn {
+            padding: 10px 15px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .checkout-btn {
+            background: #000;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .checkout-btn:hover {
+            background: #222;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .continue-btn {
+            background: transparent;
+            color: #000;
+            padding: 15px;
+            font-weight: 600;
+            border: 1px solid #000;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .continue-btn:hover {
+            background: #000;
+            color: white;
+        }
+        
+        .cart-item {
+            transition: all 0.3s;
+        }
+        
+        .cart-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-cart-icon {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }

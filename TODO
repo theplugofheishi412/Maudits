@@ -1,0 +1,28 @@
+// Taches a faire  pour la suite du projet :
+- "*gerer es liens de redirection entre les pages(Priorite absolue) c'est okay pour les liens"
+- page pour voir la description du produits
+
+-" Mettre en place la base de donnee pour le panier et les utilisateurs"
+-" Mettre en place l'interface d'admin pour gerer les produits"
+-" Mettre en place un systeme de paiement"
+-" gerer la securite (https, mot de passe hache, etc)"
+-" choisir le language de programmation pour le backend ou le framework "
+- "Mettre en place un mvp"
+- verifier les formulaire de connexion et d'inscription
+
+
+t-shirt 15k
+cullote 20k
+pull 20k
+casquette 5k
+ensemble (
+    t-shrit + culotte = 35k;
+    pull + culotte = 40k;
+) 
+
+les differentes Collections (
+    Collection Menace;
+    Collection Fast;
+    Collection Sois Different,
+)
+
