@@ -51,6 +51,5 @@
                     <h3 class="text-2xl font-bold mb-4">VOTRE PANIER EST VIDE</h3>
                     <p class="text-gray-600 mb-6">Découvrez nos nouvelles collections et trouvez votre style MAUDITS.</p>
                     <a href="index.html" class="checkout-btn inline-block w-auto px-8">DÉCOUVRIR LES COLLECTIONS</a>
-                </div>
-            `;
+                </div> `;
         }
