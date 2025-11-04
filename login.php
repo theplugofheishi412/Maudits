@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 // Si l'utilisateur est déjà connecté, redirection vers l'accueil
 if(isset($_SESSION['user_id'])) {

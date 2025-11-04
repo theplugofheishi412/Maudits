@@ -1,57 +1,59 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panier - MAUDITS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="img/image0__2_-removebg-preview.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/order.css">
-</head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-black text-white sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->
-         <div class="flex items-center">
-                <!-- <h1 class="text-3xl font-bold tracking-wider">MAUDITS</h1>
-                 -->
-               <a href="index.html"><img src="img/image0__2_-removebg-preview.png" alt="Logo MAUDITS" class="h-11 w-auto"></a>
-            </div>
-            
-            <!-- Navigation -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="index.html" class="nav-link hover:text-gray-300 transition">Accueil</a>
-                <a href="boutique.html" class="nav-link hover:text-gray-300 transition">Boutique</a>
-                <a href="nouveaute.html" class="nav-link hover:text-gray-300 transition">Nouveautés</a>
-                <a href="collections.html" class="nav-link hover:text-gray-300 transition">Collections</a>
-                <a href="contact.html" class="nav-link hover:text-gray-300 transition">Contact</a>
-            </nav>
-            
-            <!-- Icons -->
-            <div class="flex items-center space-x-4">
-                <a href="#" class="hover:text-gray-300 transition"><i class="fas fa-search"></i></a>
-                <a href="login.html" class="hover:text-gray-300 transition"><i class="fas fa-user"></i></a>
-                <a href="panier.html" class="hover:text-gray-300 transition relative">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
-                </a>
-                <button id="mobile-menu-button" class="md:hidden focus:outline-none">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black py-4 px-4">
-            <a href="index.html" class="block py-2 hover:text-gray-300 transition">Accueil</a>
-            <a href="boutique.html" class="block py-2 hover:text-gray-300 transition">Boutique</a>
-            <a href="nouveaute.html" class="block py-2 hover:text-gray-300 transition">Nouveautés</a>
-            <a href="collections.html" class="block py-2 hover:text-gray-300 transition">Collections</a>
-            <a href="contact.html" class="block py-2 hover:text-gray-300 transition">Contact</a>
-        </div>
-    </header>
+<?php
+session_start();
+
+$pageTitle = "Panier - MAUDITS";
+$currentPage = "panier";
+$customCSS = "css/order.css";
+$customJS = "script/order.js";
+include 'includes/header.php';
+
+// Initialiser le panier s'il n'existe pas
+if(!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Calculer les totaux
+$sousTotal = 0;
+$fraisExpedition = 5000;
+$remise = 0;
+
+// Exemple de produits dans le panier (à remplacer par des données de session)
+$panierProduits = [
+    [
+        'id' => 'item1',
+        'image' => 'img/MA3 4.jpg',
+        'nom' => 'Ensemble Noir',
+        'collection' => 'Collection MENACE',
+        'taille' => 'L',
+        'prix' => 20000,
+        'quantite' => 1
+    ],
+    [
+        'id' => 'item2',
+        'image' => 'img/Maudit SD.jpg',
+        'nom' => 'T-shirt Maudit',
+        'collection' => 'Collection Sois Different',
+        'taille' => 'M',
+        'prix' => 10000,
+        'quantite' => 1
+    ],
+    [
+        'id' => 'item3',
+        'image' => 'img/BAT p BLANC.jpg',
+        'nom' => 'Ensemble Blanc',
+        'collection' => 'Collection Sois Différent',
+        'taille' => 'XL',
+        'prix' => 20000,
+        'quantite' => 1
+    ]
+];
+
+foreach($panierProduits as $produit) {
+    $sousTotal += $produit['prix'] * $produit['quantite'];
+}
+
+$total = $sousTotal + $fraisExpedition - $remise;
+?>
 
     <!-- Section Panier -->
     <section class="py-8 md:py-12 bg-gray-50">
@@ -62,209 +64,97 @@
                 <!-- Articles du panier -->
                 <div class="lg:w-2/3">
                     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                        <div class="cart-item flex flex-col md:flex-row border-b border-gray-200 pb-6 mb-6 fade-in">
-                            <div class="md:w-1/4 mb-4 md:mb-0">
-                                <img src="img/MA3 4.jpg" alt="Ensemble Noir" class="w-full h-48 object-cover rounded">
+                        <?php if(empty($panierProduits)): ?>
+                            <div class="text-center py-12">
+                                <i class="fas fa-shopping-bag text-6xl text-gray-300 mb-4"></i>
+                                <h3 class="text-2xl font-bold mb-2">Votre panier est vide</h3>
+                                <p class="text-gray-600 mb-6">Découvrez nos collections et ajoutez des articles à votre panier</p>
+                                <a href="boutique.php" class="bg-black text-white px-8 py-3 font-bold hover:bg-gray-800 transition inline-block">Découvrir la boutique</a>
                             </div>
-                            <div class="md:w-3/4 md:pl-6 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h3 class="text-xl font-bold">Ensemble Noir</h3>
-                                        <span class="text-lg font-bold">20.000 FCFA</span>
+                        <?php else: ?>
+                            <?php foreach($panierProduits as $index => $produit): ?>
+                                <div class="cart-item flex flex-col md:flex-row <?php echo ($index < count($panierProduits) - 1) ? 'border-b border-gray-200' : ''; ?> pb-6 mb-6 fade-in">
+                                    <div class="md:w-1/4 mb-4 md:mb-0">
+                                        <img src="<?php echo $produit['image']; ?>" alt="<?php echo $produit['nom']; ?>" class="w-full h-48 object-cover rounded">
                                     </div>
-                                    <p class="text-gray-600 mb-2">Collection MENACE</p>
-                                    <p class="text-sm text-gray-500">Taille: L</p>
-                                </div>
-                                <div class="flex justify-between items-center mt-4">
-                                    <div class="flex items-center">
-                                        <span class="quantity-btn" onclick="updateQuantity('item1', -1)">-</span>
-                                        <input type="text" class="quantity-input" value="1" id="quantity-item1" readonly>
-                                        <span class="quantity-btn" onclick="updateQuantity('item1', 1)">+</span>
+                                    <div class="md:w-3/4 md:pl-6 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between">
+                                                <h3 class="text-xl font-bold"><?php echo $produit['nom']; ?></h3>
+                                                <span class="text-lg font-bold"><?php echo number_format($produit['prix'], 0, ',', '.'); ?> FCFA</span>
+                                            </div>
+                                            <p class="text-gray-600 mb-2"><?php echo $produit['collection']; ?></p>
+                                            <p class="text-sm text-gray-500">Taille: <?php echo $produit['taille']; ?></p>
+                                        </div>
+                                        <div class="flex justify-between items-center mt-4">
+                                            <div class="flex items-center">
+                                                <span class="quantity-btn" onclick="updateQuantity('<?php echo $produit['id']; ?>', -1)">-</span>
+                                                <input type="text" class="quantity-input" value="<?php echo $produit['quantite']; ?>" id="quantity-<?php echo $produit['id']; ?>" readonly>
+                                                <span class="quantity-btn" onclick="updateQuantity('<?php echo $produit['id']; ?>', 1)">+</span>
+                                            </div>
+                                            <button class="remove-btn" onclick="removeItem('<?php echo $produit['id']; ?>')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button class="remove-btn" onclick="removeItem('item1')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="cart-item flex flex-col md:flex-row border-b border-gray-200 pb-6 mb-6 fade-in">
-                            <div class="md:w-1/4 mb-4 md:mb-0">
-                                <img src="img/Maudit SD.jpg" alt="T-shirt Maudit" class="w-full h-48 object-cover rounded">
-                            </div>
-                            <div class="md:w-3/4 md:pl-6 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h3 class="text-xl font-bold">T-shirt Maudit</h3>
-                                        <span class="text-lg font-bold">10.000 FCFA</span>
-                                    </div>
-                                    <p class="text-gray-600 mb-2">Collection Sois Different</p>
-                                    <p class="text-sm text-gray-500">Taille: M</p>
-                                </div>
-                                <div class="flex justify-between items-center mt-4">
-                                    <div class="flex items-center">
-                                        <span class="quantity-btn" onclick="updateQuantity('item2', -1)">-</span>
-                                        <input type="text" class="quantity-input" value="1" id="quantity-item2" readonly>
-                                        <span class="quantity-btn" onclick="updateQuantity('item2', 1)">+</span>
-                                    </div>
-                                    <button class="remove-btn" onclick="removeItem('item2')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="cart-item flex flex-col md:flex-row pb-6 fade-in">
-                            <div class="md:w-1/4 mb-4 md:mb-0">
-                                <img src="img/BAT p BLANC.jpg" alt="Ensemble Blanc" class="w-full h-48 object-cover rounded">
-                            </div>
-                            <div class="md:w-3/4 md:pl-6 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h3 class="text-xl font-bold">Ensemble Blanc</h3>
-                                        <span class="text-lg font-bold">20.000 FCFA</span>
-                                    </div>
-                                    <p class="text-gray-600 mb-2">Collection Sois Différent</p>
-                                    <p class="text-sm text-gray-500">Taille: XL</p>
-                                </div>
-                                <div class="flex justify-between items-center mt-4">
-                                    <div class="flex items-center">
-                                        <span class="quantity-btn" onclick="updateQuantity('item3', -1)">-</span>
-                                        <input type="text" class="quantity-input" value="1" id="quantity-item3" readonly>
-                                        <span class="quantity-btn" onclick="updateQuantity('item3', 1)">+</span>
-                                    </div>
-                                    <button class="remove-btn" onclick="removeItem('item3')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
-                    
-                    <!-- <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-bold mb-4">CODE PROMO</h3>
-                        <div class="flex">
-                            <input type="text" class="promo-input" placeholder="Entrez votre code promo">
-                            <button class="promo-btn">Appliquer</button>
-                        </div>
-                    </div> -->
                 </div>
                 
                 <!-- Récapitulatif de commande -->
                 <div class="lg:w-1/3">
-                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-24 mb-8">
                         <h3 class="text-xl font-bold mb-4">RÉCAPITULATIF DE LA COMMANDE</h3>
                         
                         <div class="flex justify-between mb-2">
                             <span>Sous-total</span>
-                            <span>50.000 FCFA</span>
+                            <span><?php echo number_format($sousTotal, 0, ',', '.'); ?> FCFA</span>
                         </div>
                         
                         <div class="flex justify-between mb-2">
                             <span>Frais d'expédition</span>
-                            <span>5.000 FCFA</span>
+                            <span><?php echo number_format($fraisExpedition, 0, ',', '.'); ?> FCFA</span>
                         </div>
                         
                         <div class="flex justify-between mb-4">
                             <span>Remise</span>
-                            <span class="text-green-600">-0 FCFA</span>
+                            <span class="text-green-600">-<?php echo number_format($remise, 0, ',', '.'); ?> FCFA</span>
                         </div>
                         
                         <div class="border-t border-gray-200 pt-4 mb-4">
                             <div class="flex justify-between font-bold text-lg">
                                 <span>Total</span>
-                                <span>55.000 FCFA</span>
+                                <span><?php echo number_format($total, 0, ',', '.'); ?> FCFA</span>
                             </div>
                         </div>
-                        <!-- action de validation -->
-                        <button class="checkout-btn">PROCÉDER AU PAIEMENT</button>
-                        <a href="boutique.html" class="continue-btn">CONTINUER MES ACHATS</a>
+                        
+                        <button class="checkout-btn" <?php echo empty($panierProduits) ? 'disabled' : ''; ?>>PROCÉDER AU PAIEMENT</button>
+                        <a href="boutique.php" class="continue-btn">CONTINUER MES ACHATS</a>
                     </div>
                     
-                  
-                </div>
-                <div class="lg:w-1/3">
-                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                       
-                     <h3 class="text-xl font-bold mb-4">AVANTAGES MAUDITS</h3>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">AVANTAGES MAUDITS</h3>
                         <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-black mt-1 mr-3"></i>
-                                <span>Livraison gratuite à partir de 100.000 FCFA d'achat</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-black mt-1 mr-3"></i>
-                                <span>Retours gratuits sous 30 jours</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-black mt-1 mr-3"></i>
-                                <span>Paiement sécurisé</span>
-                            </li>
+                            <?php
+                            $avantages = [
+                                'Livraison gratuite à partir de 100.000 FCFA d\'achat',
+                                'Retours gratuits sous 30 jours',
+                                'Paiement sécurisé'
+                            ];
+                            
+                            foreach($avantages as $avantage): ?>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-black mt-1 mr-3"></i>
+                                    <span><?php echo $avantage; ?></span>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                  
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- About -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">MAUDITS</h3>
-                    <p class="mb-4">Marque de mode audacieuse pour ceux qui osent se démarquer.</p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.facebook.com/people/Authentique-Club/61567378367105/" target="_blank" class="hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/maudit.orn/" target="_blank" class="hover:text-gray-300"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@maudit.orn" target="_blank" class="hover:text-gray-300"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Liens -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">LIENS RAPIDES</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="hover:text-gray-300 transition">Accueil</a></li>
-                        <li><a href="boutique.html" class="hover:text-gray-300 transition">Boutique</a></li>
-                        <li><a href="nouveaute.html" class="hover:text-gray-300 transition">Nouveautés</a></li>
-                        <li><a href="collections.html" class="hover:text-gray-300 transition">Collections</a></li>
-                        <li><a href="contact.html" class="hover:text-gray-300 transition">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <!--TODO : Service -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">SERVICE CLIENT</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-gray-300 transition">Mon compte</a></li>
-                        <li><a href="#" class="hover:text-gray-300 transition">Suivi de commande</a></li>
-                        <li><a href="#" class="hover:text-gray-300 transition">Livraison & Retours</a></li>
-                        <li><a href="#" class="hover:text-gray-300 transition">FAQ</a></li>
-                        <li><a href="#" class="hover:text-gray-300 transition">Politique de confidentialité</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Contact -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">CONTACT</h3>
-                    <address class="not-italic">
-                        <p class="mb-2">123 Rue de la Mode</p>
-                        <p class="mb-2">75000 Libreville,Gabon</p>
-                        <p class="mb-2">Email: contact@maudits.com</p>
-                        <p>Tél: +241 (0) 77 00 00 00</p>
-                    </address>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 MAUDITS. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script/order.js">
-    </script>
-</body>
-</html>
+<?php include 'includes/footer.php'; ?>
