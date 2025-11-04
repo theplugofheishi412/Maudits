@@ -5,7 +5,7 @@
             // Ici, vous ajouteriez normalement le code pour envoyer les données au serveur
             alert('Connexion réussie!');
             // Redirection vers la page d'accueil
-            window.location.href = 'index.html';
+            window.location.href = 'index.php';
         });
         
         // Script pour le menu mobile
