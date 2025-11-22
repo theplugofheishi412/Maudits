@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $pageTitle = "Contact - MAUDITS";
 $currentPage = "contact";
 $customCSS = "css/contact.css";
@@ -90,7 +92,7 @@ include 'includes/header.php';
                 <div class="contact-form">
                     <h2 class="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
                     
-                    <form id="contactForm" method="POST" action="process_contact.php">
+                    <form id="contactForm" method="POST" action="Acces/process_contact.php">
                         <div class="form-group">
                             <label for="name" class="form-label">Nom complet</label>
                             <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>

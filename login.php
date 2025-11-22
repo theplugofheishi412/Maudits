@@ -1,7 +1,7 @@
 <?php
-// session_start();
+session_start();
 
-// Si l'utilisateur est déjà connecté, redirection vers l'accueil
+// Si l'utilisateur est  connecter
 if(isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
@@ -12,7 +12,7 @@ $currentPage = "login";
 $customCSS = "css/connexion.css";
 $customJS = "script/login.js";
 include 'includes/header.php';
-include 'Acces/process_login.php';
+
 ?>
 
     <!-- Section de connexion -->
@@ -45,7 +45,7 @@ include 'Acces/process_login.php';
                     </div>
                 <?php endif; ?>
                 
-                <form id="login-form" method="POST" action="process_login.php" class="space-y-6">
+                <form id="login-form" method="POST" action="Acces/process_login.php" class="space-y-6">
                     <div>
                         <label for="email" class="form-label">Adresse email</label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="exemple@email.com" required>

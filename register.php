@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 
 // Si l'utilisateur est déjà connecté, redirection vers l'accueil
 if(isset($_SESSION['user_id'])) {
@@ -8,12 +8,11 @@ if(isset($_SESSION['user_id'])) {
 }
 
 $pageTitle = "Inscription - MAUDITS";
-$register = "Acces/register.php";
 $currentPage = "register";
 $customCSS = "css/connexion.css";
 $customJS = "script/login.js";
 include 'includes/header.php';
-include 'Acces/process_register.php';
+
 ?>
 
     <!-- Section d'inscription -->
@@ -36,7 +35,7 @@ include 'Acces/process_register.php';
                         </div>
                     <?php endif; ?>
 
-                    <form id="register-form" method="POST" action="process_register.php" class="space-y-6">
+                    <form id="register-form" method="POST" action="Acces/process_register.php" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="prenom" class="form-label">Prénom</label>

@@ -9,7 +9,7 @@ if(!isset($_SESSION['user_id'])) {
 
 $pageTitle = "Mon Compte - MAUDITS";
 $currentPage = "account";
-$customCSS = "connexion.css";
+$customCSS = "css/connexion.css";
 include 'includes/header.php';
 
 // Récupérer les informations de l'utilisateur

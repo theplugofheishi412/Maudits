@@ -10,7 +10,7 @@ include 'includes/header.php';
     <section class="relative bg-black text-white h-screen flex items-center">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto px-4 z-10 fade-in">
-            <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-wider">MAUDITS</h2>
+            <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-wider">MAUDIT</h2>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">L'élégance audacieuse. Des pièces uniques pour ceux qui osent.</p>
             <a href="collections.php" class="bg-white text-black px-8 py-3 font-bold hover:bg-gray-200 transition inline-block">Découvrir</a>
         </div>
